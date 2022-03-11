@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Postgres client setup
+// Postgres Client Setup
 const { Pool } = require("pg");
 const pgClient = new Pool({
   user: keys.pgUser,
@@ -35,12 +35,14 @@ const redisClient = redis.createClient({
 const redisPublisher = redisClient.duplicate();
 
 // Express route handlers
+
 app.get("/", (req, res) => {
-  res.send("hi!!");
+  res.send("Hi");
 });
 
 app.get("/values/all", async (req, res) => {
   const values = await pgClient.query("SELECT * from values");
+
   res.send(values.rows);
 });
 
@@ -61,9 +63,7 @@ app.post("/values", async (req, res) => {
   redisPublisher.publish("insert", index);
   pgClient.query("INSERT INTO values(number) VALUES($1)", [index]);
 
-  res.send({
-    working: true,
-  });
+  res.send({ working: true });
 });
 
 app.listen(5000, (err) => {
