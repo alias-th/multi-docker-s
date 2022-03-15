@@ -33,7 +33,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: monton-multi-container
           environment_name: Montonmulticontainer-env
-          existing_bucket_name: multi-container
+          existing_bucket_name: elasticbeanstalk-us-east-1-121572905147
           region: us-east-1
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
